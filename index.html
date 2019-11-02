@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8"/>
+    <title>MADHack OCHaCafe</title>
+    <meta http-equiv="x-ua-compatible" content="IE=edge"/>
+    <meta name="viewport" content="viewport-fit=cover, initial-scale=1.0"/>
+    <link rel="icon" type="image/x-icon" href="css/images/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="css/images/touchicon.png">
+    <meta name="apple-mobile-web-app-title" content="Oracle JET">
+<!-- injector:theme -->
+<link rel="stylesheet" href="css/light/0.0.1/web/light.min.css" id="css" />
+<!-- endinjector -->
+    <link rel="stylesheet" href="css/app.css"/>
+    <link rel="stylesheet" href="css/icomoon.css"/>
+  </head>
+  <body class="oj-web-applayout-body">
+    <div id="global-body" class="oj-web-applayout-page">
+      <header role="banner" class="oj-web-applayout-header">
+        <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
+          <div class="oj-flex-bar-start">
+            <oj-button id="backToChat" class="oj-button-lg" chroming="half" display="icons">
+              <span slot="startIcon" class="oj-fwk-icon oj-fwk-icon-caret-w"></span>
+              Back to Chat
+            </oj-button>
+          </div>
+          <div class="oj-flex-bar-center-absolute">
+            <h1 class="oj-web-applayout-header-title">Station Info.</h1>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="oj-web-applayout-content">
+        <div class="oj-panel oj-sm-margin-2x-bottom">
+          <h2 class="station-name">Gaiemmae Station</h2>
+          <div class="oj-flex">
+            <div class="oj-flex-item oj-sm-6 oj-flex oj-sm-align-items-center">
+              <div class="oj-flex-item oj-sm-flex-0 oj-sm-margin-1x-horizontal">
+                <span class="line-mark"><img src="css/images/icon_ginza.png" width="24" height="24"></span>
+              </div>
+              <div class="oj-flex-item oj-sm-flex-1">
+                <span class="line-name">Ginza Line</span>
+                <span role="image" class="oj-fwk-icon-status-warning oj-fwk-icon"></span>
+              </div>
+            </div>
+            <div class="oj-flex-item oj-sm-6 oj-flex oj-sm-align-items-center">
+              <div class="oj-flex-item oj-sm-flex-0 oj-sm-margin-1x-horizontal">
+                <span class=" line-mark"><img src="css/images/icon_oracle.png" width="24" height="24"></span>
+              </div>
+              <div class="oj-flex-item oj-sm-flex-1">
+                <span class="line-name">Oracle Line</span>
+                <span role="image" class="oj-fwk-icon-status-error oj-fwk-icon"></span>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="station-address oj-sm-margin-2px-top">
+            2-7-16, Kita-aoyama, Minato-ku, Tokyo
+          </div>
+        </div>
+        <div class="oj-panel" style="padding-top: 0;">
+          <oj-tab-bar id="station-detail" edge="top" selection="{{selectedItem}}" class="oj-sm-margin-1x-bottom">
+            <ul>
+              <li id="route">
+                <a href="#" id="route-tab" aria-controls="route-tab-panel">
+                  <span class="oj-tabbar-item-icon icomoon-icon icomoon-compass2"></span>
+                  Route
+                </a>
+              </li>
+              <li id="tweet">
+                <a href="#" id="tweet-tab" aria-controls="tweet-tab-panel">
+                  <span class="oj-tabbar-item-icon icomoon-icon icomoon-bubbles"></span>
+                  Tweet
+                </a>
+              </li>
+            </ul>
+          </oj-tab-bar>
+          <oj-switcher value="[[selectedItem]]">
+            <div slot="route" id="route-tab-panel"role="tabpanel" aria-labelledby="route-tab">
+              <div class="oj-flex oj-sm-flex-direction-column oj-sm-margin-2x-horizontal">
+                <div class="oj-flex-item oj-flex-bar oj-sm-margin-1x-bottom">
+                  <div class="oj-flex-bar-start oj-sm-margin-2x-end">
+                    <div style="background-color:rgb(234,67,53); color:#fff; font-weight:500; font-size:14px; border-radius:50%; width:20px; height:20px; text-align:center;">A</div>
+                  </div>
+                  <div class="oj-flex-bar-middle" style="font-size:14px;">You (address)</div>
+                </div>
+                <div class="oj-flex-item oj-flex-bar oj-sm-margin-1x-bottom">
+                  <div class="oj-flex-bar-start oj-sm-margin-2x-end">
+                    <div style="background-color:rgb(234,67,53); color:#fff; font-weight:500; font-size:14px; border-radius:50%; width:20px; height:20px; text-align:center;">B</div>
+                  </div>
+                  <div class="oj-flex-bar-middle" style="font-size:14px;">Gaiemmae Station</div>
+                </div>
+              </div>
+              <div id="map" style="height:38vh; background-color: #ece9e6"></div>
+            </div>
+            <div slot="tweet" id="tweet-tab-panel" role="tabpanel" aria-labelledby="tweet-tab">
+              <div class="tweet-panel">
+                <oj-list-view>
+                  <ul>
+                    <li>
+                      <div class="oj-flex-bar oj-sm-alitn-items-flex-start">
+                        <div class="oj-flex-bar-start oj-sm-margin-1x-vertical oj-sm-margin-2x-end">
+                          <span role="image" class="icomoon-icon icomoon-neutral neautral-emotion"></span>
+                        </div>
+                        <div class="oj-flex-bar-middle oj-flex oj-sm-flex-direction-column oj-sm-margin-1x-vertical">
+                          <div class="oj-text-xs oj-text-secondary-color">2019/11/11 11:11</div>
+                          <div class="oj-flex-item oj-text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="oj-flex-bar oj-sm-alitn-items-flex-start">
+                        <div class="oj-flex-bar-start oj-sm-margin-1x-vertical oj-sm-margin-2x-end">
+                          <span role="image" class="icomoon-icon icomoon-frustrated2 negative-emotion"></span>
+                        </div>
+                        <div class="oj-flex-bar-middle oj-flex oj-sm-flex-direction-column oj-sm-margin-1x-vertical">
+                          <div class="oj-flex-item oj-text-xs oj-text-secondary-color">2019/11/11 11:11</div>
+                          <div class="oj-flex-item oj-text-sm">Aliquam pharetra, risus ac interdum sollicitudin, sem erat ultrices ipsum, eget vehicula nibh augue sollicitudin ligula.</div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="oj-flex-bar oj-sm-alitn-items-flex-start">
+                        <div class="oj-flex-bar-start oj-sm-margin-1x-vertical oj-sm-margin-2x-end">
+                          <span role="image" class="icomoon-icon icomoon-happy2 positive-emotion"></span>
+                        </div>
+                        <div class="oj-flex-bar-middle oj-flex oj-sm-flex-direction-column oj-sm-margin-1x-vertical">
+                          <div class="oj-flex-item oj-text-xs oj-text-secondary-color">2019/11/11 11:11</div>
+                          <div class="oj-flex-item oj-text-sm">Sed ullamcorper cursus feugiat. Mauris tristique aliquam dictum.</div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </oj-list-view>
+              </div>
+            </div>
+          </oj-switcher>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="js/libs/require/require.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyATT38zde5awJm1-tmSGzl1cFfR6ICl6z8"></script>
+    <script type="text/javascript">
+      function initMap() {
+        var directionsService = new google.maps.DirectionsService();
+        var directionsRenderer = new google.maps.DirectionsRenderer();
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 35.680166, lng: 139.713779} ,
+          zoom: 15,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          mapTypeControl: false,
+          streetViewControl: true,
+          streetViewControlOptions: {
+            position: google.maps.ControlPosition.TOP_LEFT
+          },
+          zoomControl: true,
+          zoomControlOptions: {
+            style: google.maps.ZoomControlStyle.SMALL,
+            position: google.maps.ControlPosition.LEFT_TOP
+          },
+          scaleControl: true,
+        });
+        directionsRenderer.setMap(map);
+        var request = {
+          origin:      new google.maps.LatLng(35.680166, 139.713779),
+          destination: new google.maps.LatLng(35.6724254, 139.7203652),
+          travelMode: google.maps.TravelMode.WALKING,
+        };
+        directionsService.route(request, function(result, status) {
+          directionsRenderer.setDirections(result);
+        });
+      }
+      initMap();
+    </script>
+  </body>
+</html>

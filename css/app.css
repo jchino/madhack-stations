@@ -1,0 +1,36 @@
+@charset "UTF-8";
+.station-name {
+  margin-top: 0;
+}
+.oj-panel .station-name,
+.oj-panel .station-address {
+  text-align: center;
+}
+.line-name {
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+.neautral-emotion,
+.positive-emotion,
+.negative-emotion {
+  font-size: 28px;
+}
+.neautral-emotion {
+  color: #869e9e;
+}
+.negative-emotion {
+  color: #EA7362;
+}
+.positive-emotion {
+  color: #74B28E;
+}
+#tweet-tab-panel .oj-listview-item {
+  padding: 4px;
+}
+
+.tweet-panel h4 {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 0;
+  padding: 3px 6px;
+}
