@@ -33,4 +33,10 @@
   font-weight: 400;
   margin-bottom: 0;
   padding: 3px 6px;
+  background-color: #e6e3e0;
+}
+
+.oj-listview-no-data-message.oj-listview-empty-text {
+  font-size: 0.85714rem;
+  color: rgba(16, 15, 14, 0.6);
 }

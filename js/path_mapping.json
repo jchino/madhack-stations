@@ -123,13 +123,13 @@
       "cdn": "jet",
       "cwd": "node_modules/@oracle/oraclejet/dist/js/libs/oj",
       "debug": {
-        "cwd": "debug", 
+        "cwd": "debug",
         "src": ["**"],
         "path": "libs/oj/v#{version}/debug",
         "cdnPath": "debug"
       },
       "release": {
-        "cwd": "min", 
+        "cwd": "min",
         "src": ["**"],
         "path": "libs/oj/v#{version}/min",
         "cdnPath": "min"
@@ -210,7 +210,7 @@
         "cdnPath": "touchr/touchr"
       }
     },
-    
+
     "regenerator-runtime": {
       "cdn": "3rdparty",
       "cwd": "node_modules/@oracle/oraclejet/dist/js/libs/regenerator-runtime",
@@ -239,7 +239,7 @@
         "path": "libs/@tp:corejs@.js",
         "cdnPath": "@tp:corejs@"
       }
-    }, 
+    },
 
     "customElements": {
       "cdn": "3rdparty",
@@ -271,4 +271,4 @@
       }
     }
   }
-} 
+}

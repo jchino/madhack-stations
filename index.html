@@ -18,12 +18,6 @@
     <div id="global-body" class="oj-web-applayout-page">
       <header role="banner" class="oj-web-applayout-header">
         <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
-          <div class="oj-flex-bar-start">
-            <oj-button id="backToChat" class="oj-button-lg" chroming="half" display="icons">
-              <span slot="startIcon" class="oj-fwk-icon oj-fwk-icon-caret-w"></span>
-              Back to Chat
-            </oj-button>
-          </div>
           <div class="oj-flex-bar-center-absolute">
             <h1 class="oj-web-applayout-header-title">Station Info.</h1>
           </div>
@@ -31,30 +25,34 @@
       </header>
       <div role="main" class="oj-web-applayout-content">
         <div class="oj-panel oj-sm-margin-2x-bottom">
-          <h2 class="station-name">Gaiemmae Station</h2>
+          <h2 class="station-name"><oj-bind-text value="[[name]]"></oj-bind-text> Station</h2>
           <div class="oj-flex">
-            <div class="oj-flex-item oj-sm-6 oj-flex oj-sm-align-items-center">
-              <div class="oj-flex-item oj-sm-flex-0 oj-sm-margin-1x-horizontal">
-                <span class="line-mark"><img src="css/images/icon_ginza.png" width="24" height="24"></span>
-              </div>
-              <div class="oj-flex-item oj-sm-flex-1">
-                <span class="line-name">Ginza Line</span>
-                <span role="image" class="oj-fwk-icon-status-warning oj-fwk-icon"></span>
-              </div>
-            </div>
-            <div class="oj-flex-item oj-sm-6 oj-flex oj-sm-align-items-center">
-              <div class="oj-flex-item oj-sm-flex-0 oj-sm-margin-1x-horizontal">
-                <span class=" line-mark"><img src="css/images/icon_oracle.png" width="24" height="24"></span>
-              </div>
-              <div class="oj-flex-item oj-sm-flex-1">
-                <span class="line-name">Oracle Line</span>
-                <span role="image" class="oj-fwk-icon-status-error oj-fwk-icon"></span>
-              </div>
-            </div>
+            <oj-bind-for-each data="[[lines]]">
+              <template>
+                <div class="oj-flex-item oj-sm-6 oj-flex oj-sm-align-items-center">
+                  <div class="oj-flex-item oj-sm-flex-0 oj-sm-margin-1x-horizontal">
+                    <span class="line-mark">
+                      <oj-bind-if test="[[$current.data.name === 'Ginza Line']]">
+                        <img src="css/images/icon_ginza.png" width="24" height="24">
+                      </oj-bind-if>
+                      <oj-bind-if test="[[$current.data.name === 'Oracle Line']]">
+                        <img src="css/images/icon_oracle.png" width="24" height="24">
+                      </oj-bind-if>
+                    </span>
+                  </div>
+                  <div class="oj-flex-item oj-sm-flex-1">
+                    <span class="line-name"><oj-bind-text value="[[$current.data.name]]"></span>
+                    <oj-bind-if test="[[$current.data.warning]]">
+                      <span role="image" class="oj-fwk-icon-status-warning oj-fwk-icon"></span>
+                    </oj-bind-if>
+                  </div>
+                </div>
+              </template>
+            </oj-bind-for-each>
           </div>
           <hr>
           <div class="station-address oj-sm-margin-2px-top">
-            2-7-16, Kita-aoyama, Minato-ku, Tokyo
+            <oj-bind-text value="[[address]]"></oj-bind-text>
           </div>
         </div>
         <div class="oj-panel" style="padding-top: 0;">
@@ -69,7 +67,7 @@
               <li id="tweet">
                 <a href="#" id="tweet-tab" aria-controls="tweet-tab-panel">
                   <span class="oj-tabbar-item-icon icomoon-icon icomoon-bubbles"></span>
-                  Tweet
+                  Tweets
                 </a>
               </li>
             </ul>
@@ -81,7 +79,7 @@
                   <div class="oj-flex-bar-start oj-sm-margin-2x-end">
                     <div style="background-color:rgb(234,67,53); color:#fff; font-weight:500; font-size:14px; border-radius:50%; width:20px; height:20px; text-align:center;">A</div>
                   </div>
-                  <div class="oj-flex-bar-middle" style="font-size:14px;">You (address)</div>
+                  <div class="oj-flex-bar-middle" style="font-size:14px;">You</div>
                 </div>
                 <div class="oj-flex-item oj-flex-bar oj-sm-margin-1x-bottom">
                   <div class="oj-flex-bar-start oj-sm-margin-2x-end">
@@ -94,42 +92,83 @@
             </div>
             <div slot="tweet" id="tweet-tab-panel" role="tabpanel" aria-labelledby="tweet-tab">
               <div class="tweet-panel">
-                <oj-list-view>
-                  <ul>
-                    <li>
-                      <div class="oj-flex-bar oj-sm-alitn-items-flex-start">
-                        <div class="oj-flex-bar-start oj-sm-margin-1x-vertical oj-sm-margin-2x-end">
+                <h4>About <oj-bind-text value="[[name]]"></oj-bind-text> Station</h4>
+                <oj-list-view id="mentions" data="[[mentionsProvider]]" translations='{"msgNoData":"No tweets to display"}'>
+                  <template slot="itemTemplate" data-oj-as="mention">
+                    <div class="oj-flex-bar oj-sm-alitn-items-flex-start">
+                      <div class="oj-flex-bar-start oj-sm-margin-1x-vertical oj-sm-margin-2x-end">
+                        <oj-bind-if test="[[mention.data.emotion === 'neautral']]">
                           <span role="image" class="icomoon-icon icomoon-neutral neautral-emotion"></span>
+                        </oj-bind-if>
+                        <oj-bind-if test="[[mention.data.emotion === 'positive']]">
+                          <span role="image" class="icomoon-icon icomoon-positive positive-emotion"></span>
+                        </oj-bind-if>
+                        <oj-bind-if test="[[mention.data.emotion === 'negative']]">
+                          <span role="image" class="icomoon-icon icomoon-negative negative-emotion"></span>
+                        </oj-bind-if>
+                      </div>
+                      <div class="oj-flex-bar-middle oj-flex oj-sm-flex-direction-column oj-sm-margin-1x-vertical">
+                        <div class="oj-text-xs oj-text-secondary-color">
+                          <oj-bind-text value="[[mention.data.datetime]]"></oj-bind-text>
                         </div>
-                        <div class="oj-flex-bar-middle oj-flex oj-sm-flex-direction-column oj-sm-margin-1x-vertical">
-                          <div class="oj-text-xs oj-text-secondary-color">2019/11/11 11:11</div>
-                          <div class="oj-flex-item oj-text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                        <div class="oj-flex-item oj-text-sm">
+                          <oj-bind-text value="[[mention.data.text]]"></oj-bind-text>
                         </div>
                       </div>
-                    </li>
-                    <li>
-                      <div class="oj-flex-bar oj-sm-alitn-items-flex-start">
-                        <div class="oj-flex-bar-start oj-sm-margin-1x-vertical oj-sm-margin-2x-end">
-                          <span role="image" class="icomoon-icon icomoon-frustrated2 negative-emotion"></span>
-                        </div>
-                        <div class="oj-flex-bar-middle oj-flex oj-sm-flex-direction-column oj-sm-margin-1x-vertical">
-                          <div class="oj-flex-item oj-text-xs oj-text-secondary-color">2019/11/11 11:11</div>
-                          <div class="oj-flex-item oj-text-sm">Aliquam pharetra, risus ac interdum sollicitudin, sem erat ultrices ipsum, eget vehicula nibh augue sollicitudin ligula.</div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="oj-flex-bar oj-sm-alitn-items-flex-start">
-                        <div class="oj-flex-bar-start oj-sm-margin-1x-vertical oj-sm-margin-2x-end">
+                    </div>
+                  </template>
+                </oj-list-view>
+                <h4 class="oj-sm-margin-2x-top">About <oj-bind-text value="[[line1]]"></oj-bind-text></h4>
+                <oj-list-view id="mentions" data="[[l1mentionsProvider]]" translations='{"msgNoData":"No tweets to display"}'>
+                  <template slot="itemTemplate" data-oj-as="mention">
+                    <div class="oj-flex-bar oj-sm-alitn-items-flex-start">
+                      <div class="oj-flex-bar-start oj-sm-margin-1x-vertical oj-sm-margin-2x-end">
+                        <oj-bind-if test="[[mention.data.emotion === 'neautral']]">
+                          <span role="image" class="icomoon-icon icomoon-neutral neautral-emotion"></span>
+                        </oj-bind-if>
+                        <oj-bind-if test="[[mention.data.emotion === 'positive']]">
                           <span role="image" class="icomoon-icon icomoon-happy2 positive-emotion"></span>
+                        </oj-bind-if>
+                        <oj-bind-if test="[[mention.data.emotion === 'negative']]">
+                          <span role="image" class="icomoon-icon icomoon-frustrated2 negative-emotion"></span>
+                        </oj-bind-if>
+                      </div>
+                      <div class="oj-flex-bar-middle oj-flex oj-sm-flex-direction-column oj-sm-margin-1x-vertical">
+                        <div class="oj-text-xs oj-text-secondary-color">
+                          <oj-bind-text value="[[mention.data.datetime]]"></oj-bind-text>
                         </div>
-                        <div class="oj-flex-bar-middle oj-flex oj-sm-flex-direction-column oj-sm-margin-1x-vertical">
-                          <div class="oj-flex-item oj-text-xs oj-text-secondary-color">2019/11/11 11:11</div>
-                          <div class="oj-flex-item oj-text-sm">Sed ullamcorper cursus feugiat. Mauris tristique aliquam dictum.</div>
+                        <div class="oj-flex-item oj-text-sm">
+                          <oj-bind-text value="[[mention.data.text]]"></oj-bind-text>
                         </div>
                       </div>
-                    </li>
-                  </ul>
+                    </div>
+                  </template>
+                </oj-list-view>
+                <h4 class="oj-sm-margin-2x-top">About <oj-bind-text value="[[line2]]"></oj-bind-text></h4>
+                <oj-list-view id="mentions" data="[[l2mentionsProvider]]" translations='{"msgNoData":"No tweets to display"}'>
+                  <template slot="itemTemplate" data-oj-as="mention">
+                    <div class="oj-flex-bar oj-sm-alitn-items-flex-start">
+                      <div class="oj-flex-bar-start oj-sm-margin-1x-vertical oj-sm-margin-2x-end">
+                        <oj-bind-if test="[[mention.data.emotion === 'neautral']]">
+                          <span role="image" class="icomoon-icon icomoon-neutral neautral-emotion"></span>
+                        </oj-bind-if>
+                        <oj-bind-if test="[[mention.data.emotion === 'positive']]">
+                          <span role="image" class="icomoon-icon icomoon-neutral positive-emotion"></span>
+                        </oj-bind-if>
+                        <oj-bind-if test="[[mention.data.emotion === 'negative']]">
+                          <span role="image" class="icomoon-icon icomoon-neutral negative-emotion"></span>
+                        </oj-bind-if>
+                      </div>
+                      <div class="oj-flex-bar-middle oj-flex oj-sm-flex-direction-column oj-sm-margin-1x-vertical">
+                        <div class="oj-text-xs oj-text-secondary-color">
+                          <oj-bind-text value="[[mention.data.datetime]]"></oj-bind-text>
+                        </div>
+                        <div class="oj-flex-item oj-text-sm">
+                          <oj-bind-text value="[[mention.data.text]]"></oj-bind-text>
+                        </div>
+                      </div>
+                    </div>
+                  </template>
                 </oj-list-view>
               </div>
             </div>
@@ -145,7 +184,7 @@
         var directionsService = new google.maps.DirectionsService();
         var directionsRenderer = new google.maps.DirectionsRenderer();
         var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 35.680166, lng: 139.713779} ,
+          center: {lat: 35.6724254, lng: 139.7203652} ,
           zoom: 15,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           mapTypeControl: false,
@@ -162,8 +201,8 @@
         });
         directionsRenderer.setMap(map);
         var request = {
-          origin:      new google.maps.LatLng(35.680166, 139.713779),
-          destination: new google.maps.LatLng(35.6724254, 139.7203652),
+          origin:      new google.maps.LatLng(35.6724254, 139.7203652),
+          destination: new google.maps.LatLng(35.67054748535156, 139.71804809570312),
           travelMode: google.maps.TravelMode.WALKING,
         };
         directionsService.route(request, function(result, status) {
